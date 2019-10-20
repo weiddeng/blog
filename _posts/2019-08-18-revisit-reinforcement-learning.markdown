@@ -12,7 +12,15 @@ RL is about agent making decisions in MDP. Note MDP is a discrete process. It is
 There are value based, policy based, and model based RL. In value based RL, the key is to learn a value function, which can be a DNN. We have Monte Carlo learning and TD learning to access perceived ground truth in order to update the value function. In MC learning, the value function is updated in batch at end of episode. In TD learning it is updated once per step. Because states and actions are parametrized, an update can affect all states. There are state value function and Q function. In model free RL, the agent should learn the Q function. How does the agent look forward and decide which actions to take while learning? - greedy as in SARSA (typical on policy learning) or epsilon-greedy as in Q-learning (typical off policy learning) are common choices; the agent can also learn a model and integrate learning and planning as in Dyna, Dyna-Q, and Monte Carlo Tree Search.
 
 
-A policy is a function mapping each state to a distribution of actions. It can be stochastic or deterministic. If a policy is deterministic, then it maps each state to a deterministic action. In policy based RL, the agent learns a policy (parametrized by theta, often a DNN) directly through gradient ascent. We need to deep dive the Policy Gradient Theorem, but for now, just assume the gradient of the return on theta is the expectation of (Q function - baseline)\*(score function). Next, let's look at a few policy based RL agents using [TF-Agents][TF-Agents] as example.
+A policy is a function mapping each state to a distribution of actions. It can be stochastic or deterministic. If a policy is deterministic, then it maps each state to a deterministic action. In policy based RL, the agent learns a policy (parametrized by theta, often a DNN) directly through gradient ascent. We need to deep dive the Policy Gradient Theorem, but for now, just assume the gradient of the return on theta is the expectation of (Q function - baseline)\*(score function). Next, let's look at a few policy based RL agents using [TF-Agents][TF-Agents] as example. To install TF-Agents, run
+
+```
+pip install tensorflow==2.0.0-rc0
+pip install --user --upgrade tf-agents-nightly
+git clone https://github.com/tensorflow/agents.git
+cd agents
+pip install -e .[tests]
+```
 
 [REINFORCE][REINFORCE]
 

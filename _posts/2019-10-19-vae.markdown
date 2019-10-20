@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "What I Talk about When I Talk about Variational AutoEncoder"
+date:   2019-10-18 15:34:00 -0800
+---
+VAE learns from data, and tries to show what generates the data. A datapoint is in general high dimensional, and mixes signal and noise, so it is hard to capture what is going on. If we believe there is a low dimensional space that captures the data, then we can use VAE. Let us use X to
+
+VAE is a model, a computation graph. 
