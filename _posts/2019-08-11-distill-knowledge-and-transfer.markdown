@@ -6,7 +6,10 @@ date:   2019-08-11 15:25:00 -0800
 Knowledge distillation and transfer learning is very popular in industry in recent years.
 
 
-The basic idea is that a complicated model - think about regularization, ensemble - trained on huge amount of data usually captures a lot of information. For a classification problem, the info can be logits, or partitioning the original problem into subproblems. We can then train a simple model using logits from the complicated model as soft labels. This makes hard labels optional. More importantly, by training on the soft labels, the simple model is able to learn on less data yet achieve similar result. A step further is training an ensemble of specialist models to assist the simple model.
+The basic idea is that a complicated model - think about regularization, ensemble - trained on huge amount of data usually captures a lot of information. For a classification problem, the information can be logits, or partitioning the original problem into subproblems. We can then use those information to train a simple model. For example, use logits from the complicated model as soft labels. By training on the soft labels, the simple model is able to achieve comparable result using less data. Basically, hard labels are not necessarily of the best representation to learn from.
+
+
+When there is a large number of classes in a classification problem, the complicated model usually reveals some structure in the problem. We can partition the original problem into an ensemble of subproblems and train an ensemble of specialist models. Usually we can obtain a great model by combining the complicated model and the ensemble of specialist models.
 
 
 Reference: [Distilling the Knowledge in a Neural Network][Distilling the Knowledge in a Neural Network]
