@@ -4,7 +4,7 @@ layout:  post
 title:   "Meta Learning 1 - MAML"
 date:    2019-11-16 13:47:00 -0800
 ---
-Learn math, physics, chemistry well, and not be afraid to travel the cosmo.  -- Chinese Proverb
+*Learn math, physics, chemistry well, and not be afraid to travel the cosmo.* --- Chinese Proverb
 
 This post is my initial mumbling on meta learning. Meta learning is a different way to learn and do tasks. Traditionally, a task is a singleton, learning to do it well end-to-end with minimal human intervention is all we need. Meta learning takes a step back, groups many tasks, and aims to learn all of them and generalize to new tasks. By bringing in structure, meta learning probably can learn many tasks in one go. One of the difficulties is "few shot" - a task provides only a few examples to learn from. In Professor [Nan Lin][Professor Nan Lin's Page]'s words, we need to borrow information.
 
@@ -16,7 +16,7 @@ $$
 Then, our goal is to obtain $\theta$ so that $f_{\theta_{\mathcal{T}, K}}$ does well on a generic task $\mathcal{T} \sim p(\mathcal{T})$. Namely,
 $$
 \begin{align}
-\theta &= \underset{\theta}{\arg\min}\:\mathbb{E}_{\mathcal{T} \sim p(\mathcal{T})}[\mathcal{L}_\mathcal{T}(f_{\theta_{\mathcal{T}, K}})]\\
+\theta &= \underset{\theta}{\arg\min}\:\mathbb{E}_{\mathcal{T} \sim p(\mathcal{T})}[\mathcal{L}_\mathcal{T}(f_{\theta_{\mathcal{T}, K}})]\nonumber\\
 &= \underset{\theta}{\arg\min}\:\mathbb{E}_{\mathcal{T} \sim p(\mathcal{T})}[\mathcal{L}_\mathcal{T}(f_{\theta - \alpha \nabla_{\theta}\mathcal{L}_\mathcal{T}(f_\theta)})].
 \end{align}
 $$
@@ -27,7 +27,7 @@ $$
 This is essentially **Algorithm 1** in [Finn et al. 2017][Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks].
 
 ### Bayesian Hierarchical Modeling
-Meta learning has a Bayesian perspective. Let $\theta$ be the task general random variable with prior $p(\theta)$, and $\phi \sim p(\phi|\theta)$ be the task specific random variable. During meta learning, we sample $\mathcal{J}$ tasks $\{\mathcal{T}_j | j \in \mathcal{J}\}$, and for each task $\mathcal{T}_j$, we sample $K$ training datapoints
+Meta learning has a Bayesian perspective. Let $\theta$ be the task general random variable with prior $p(\theta)$, and $\phi \sim p(\phi|\theta)$ be the task specific random variable. During meta learning, we sample $\mathcal{J}$ tasks `$\{\mathcal{T}_j | j \in \mathcal{J}\}$`, and for each task `$\mathcal{T}_j$`, we sample $K$ training datapoints
 $$
 \mathbf{X}^{\text{train}}_j = \{\mathbf{x}^{\text{train}}_{j_k} = (x^{\text{train}}_{j_k}, y^{\text{train}}_{j_k}) : k = 1, ..., K\},
 $$
@@ -40,34 +40,34 @@ $$
 \mathcal{L}(\phi) = -\log p(\mathbf{X}|\phi).
 $$
 Recall the meta learning objective is to minimize test loss.
-Let $\mathbf{X}^{\text{test}} = \cup_{j \in \mathcal{J}}\mathbf{X}^{\text{test}}_j$, then
+Let `$\mathbf{X}^{\text{test}} = \cup_{j \in \mathcal{J}}\mathbf{X}^{\text{test}}_j$`, then
 $$
-\begin{align}
+\begin{align*}
 p(\mathbf{X}^{\text{test}}|\theta) &= \prod_{j \in \mathcal{J}}p(\mathbf{X}^{\text{test}}_j|\theta)\\
 &= \prod_{j \in \mathcal{J}}\int p(\mathbf{X}^{\text{test}}_j|\phi_j)p(\phi_j|\theta)d\phi_j.
-\end{align}
+\end{align*}
 $$
 And
 $$
 -\log p(\mathbf{X}^{\text{test}}|\theta) = -\sum_{j \in \mathcal{J}}\int p(\mathbf{X}^{\text{test}}_j|\phi_j)p(\phi_j|\theta)d\phi_j.
 $$
-Using $\hat{\phi}_j$ as an estimator for $\phi_j$, then
+Using `$\hat{\phi}_j$` as an estimator for `$\phi_j$`, then
 $$
 -\log p(\mathbf{X}^{\text{test}}|\theta) = -\sum_{j \in \mathcal{J}} p(\mathbf{X}^{\text{test}}_j|\hat{\phi}_j).
 $$
 If set
 $$
-\begin{align}
+\begin{align*}
 \hat{\phi}_j &= \theta - \alpha \nabla_{\theta}\mathcal{L}_j(f_\theta)\\
 &= \theta + \alpha \nabla_{\theta} \log p(\mathbf{X}^{\text{train}}_j|\theta)
-\end{align}
+\end{align*}
 $$
-as in the adaptation process above, then maximizing the likelihood $p(\mathbf{X}^{\text{test}}|\theta)$ becomes minimizing $-\sum_{j \in \mathcal{J}} p(\mathbf{X}^{\text{test}}_j|\theta + \alpha \nabla_{\theta} \log p(\mathbf{X}^{\text{train}}_j|\theta))$, which is exactly
+as in the adaptation process above, then maximizing the likelihood $p(\mathbf{X}^{\text{test}}|\theta)$ becomes minimizing `$-\sum_{j \in \mathcal{J}} p(\mathbf{X}^{\text{test}}_j|\theta + \alpha \nabla_{\theta} \log p(\mathbf{X}^{\text{train}}_j|\theta))$`, which is exactly
 $$
-\begin{align}
+\begin{align*}
 \theta &= \underset{\theta}{\arg\min}\:\mathbb{E}_{\mathcal{T} \sim p(\mathcal{T})}[\mathcal{L}_\mathcal{T}(f_{\theta_{\mathcal{T}, K}})]\\
 &= \underset{\theta}{\arg\min}\:\mathbb{E}_{\mathcal{T} \sim p(\mathcal{T})}[\mathcal{L}_\mathcal{T}(f_{\theta - \alpha \nabla_{\theta}\mathcal{L}_\mathcal{T}(f_\theta)})]
-\end{align}
+\end{align*}
 $$
 above. This shows **Algorithm 1** has an empirical Bayesian perspective. Taking a step further, because $posterior(\theta) \propto p(\theta) \times likelihood$, we can obtain a sampling mechanism for $\theta$ that addresses the ambiguity in MAML.
 
@@ -78,5 +78,5 @@ Reference:
 
 [Professor Nan Lin's Page]: https://pages.wustl.edu/nlin
 [Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks]: https://arxiv.org/pdf/1703.03400.pdf
-[Recasting Gradient-Based Meta-Learning as Hierarchical Bayes]: https://arxiv.org/abs/1801.08930
+[Recasting Gradient-Based Meta-Learning as Hierarchical Bayes]: https://arxiv.org/pdf/1801.08930.pdf
 [Learning to Learn with Gradients]: https://ai.stanford.edu/~cbfinn/_files/dissertation.pdf
