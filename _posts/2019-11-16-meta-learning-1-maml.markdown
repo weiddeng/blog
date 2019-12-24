@@ -82,7 +82,7 @@ $$
 \end{align}
 $$
 
-as in the adaptation process above, then maximizing the likelihood $p(\mathbf{X}^{\text{test}}|\theta)$ becomes minimizing `$-\sum_{j \in \mathcal{J}} p(\mathbf{X}^{\text{test}}_j|\theta + \alpha \nabla_{\theta} \log p(\mathbf{X}^{\text{train}}_j|\theta))$`, which is exactly
+as in the adaptation process above, then maximizing the likelihood `$p(\mathbf{X}^{\text{test}}|\theta)$` becomes minimizing `$-\sum_{j \in \mathcal{J}} p(\mathbf{X}^{\text{test}}_j|\theta + \alpha \nabla_{\theta} \log p(\mathbf{X}^{\text{train}}_j|\theta))$`, which is exactly
 
 $$
 \begin{align}
@@ -91,14 +91,22 @@ $$
 \end{align}
 $$
 
-above. This shows **Algorithm 1** has an empirical Bayesian perspective. Taking a step further, because $posterior(\theta) \propto p(\theta) \times likelihood$, we can obtain a sampling mechanism for $\theta$ that addresses the ambiguity in MAML.
+above. This shows **Algorithm 1** has an empirical Bayesian perspective. Taking a step further, we can use
+
+$$
+posterior(\theta) \propto p(\theta) \times likelihood,
+$$
+
+to sample $\theta$ to reason about ambiguity.
 
 Reference:  
 [Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks][Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks]  
 [Recasting Gradient-Based Meta-Learning as Hierarchical Bayes][Recasting Gradient-Based Meta-Learning as Hierarchical Bayes]  
 [Learning to Learn with Gradients][Learning to Learn with Gradients]
+[CS 330 Deep Multi-Task and Meta Learning][CS330]
 
 [Professor Nan Lin's Page]: https://pages.wustl.edu/nlin
 [Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks]: https://arxiv.org/pdf/1703.03400.pdf
 [Recasting Gradient-Based Meta-Learning as Hierarchical Bayes]: https://arxiv.org/pdf/1801.08930.pdf
 [Learning to Learn with Gradients]: https://ai.stanford.edu/~cbfinn/_files/dissertation.pdf
+[CS330]: http://cs330.stanford.edu
