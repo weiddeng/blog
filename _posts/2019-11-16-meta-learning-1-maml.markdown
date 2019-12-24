@@ -94,7 +94,7 @@ $$
 above. This shows **Algorithm 1** has an empirical Bayesian perspective. Taking a step further, we can use
 
 $$
-posterior(\theta) \propto p(\theta) \times likelihood,
+posterior(\theta) \propto p(\theta) \times likelihood
 $$
 
 to sample $\theta$ to reason about ambiguity.
@@ -102,7 +102,7 @@ to sample $\theta$ to reason about ambiguity.
 Reference:  
 [Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks][Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks]  
 [Recasting Gradient-Based Meta-Learning as Hierarchical Bayes][Recasting Gradient-Based Meta-Learning as Hierarchical Bayes]  
-[Learning to Learn with Gradients][Learning to Learn with Gradients]
+[Learning to Learn with Gradients][Learning to Learn with Gradients]  
 [CS 330 Deep Multi-Task and Meta Learning][CS330]
 
 [Professor Nan Lin's Page]: https://pages.wustl.edu/nlin
