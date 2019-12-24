@@ -32,21 +32,27 @@ This is essentially **Algorithm 1** in [Finn et al. 2017][Model-Agnostic Meta-Le
 
 ### Bayesian Hierarchical Modeling
 Meta learning has a Bayesian perspective. Let $\theta$ be the task general random variable with prior $p(\theta)$, and $\phi \sim p(\phi|\theta)$ be the task specific random variable. During meta learning, we sample $\mathcal{J}$ tasks `$\{\mathcal{T}_j | j \in \mathcal{J}\}$`, and for each task `$\mathcal{T}_j$`, we sample $K$ training datapoints
+
 $$
 \mathbf{X}^{\text{train}}_j = \{\mathbf{x}^{\text{train}}_{j_k} = (x^{\text{train}}_{j_k}, y^{\text{train}}_{j_k}) : k = 1, ..., K\},
 $$
+
 and $M$ test datapoints
+
 $$
 \mathbf{X}^{\text{test}}_j = \{\mathbf{x}^{\text{test}}_{j_m} = (x^{\text{test}}_{j_m}, y^{\text{test}}_{j_m}) : m = 1, ..., M\}.
 $$
+
 Let $\mathcal{L}$ be the neg likelihood loss function, then
+
 $$
 \mathcal{L}(\phi) = -\log p(\mathbf{X}|\phi).
 $$
+
 Recall the meta learning objective is to minimize test loss.
 Let `$\mathbf{X}^{\text{test}} = \cup_{j \in \mathcal{J}}\mathbf{X}^{\text{test}}_j$`, then
 $$
-\begin{}
+\begin{align}
 p(\mathbf{X}^{\text{test}}|\theta) &= \prod_{j \in \mathcal{J}}p(\mathbf{X}^{\text{test}}_j|\theta)\\
 &= \prod_{j \in \mathcal{J}}\int p(\mathbf{X}^{\text{test}}_j|\phi_j)p(\phi_j|\theta)d\phi_j.
 \end{align}
