@@ -10,14 +10,16 @@ This post is my initial mumbling on meta learning. Meta learning is a different 
 
 ### Notation
 We want to learn not just one task, but a distribution of tasks $p(\mathcal{T})$, where a task $\mathcal{T} \sim p(\mathcal{T})$ has a loss function `$\mathcal{L}_\mathcal{T}$` and a sampling mechanism `$q_\mathcal{T}$`. For example, in a classification problem, we can be given a datapoint $x \sim q_\mathcal{T}(x)$ and asked to classify it; in an RL problem, we can get a trajectory from an initial observation $x_1 \sim q_\mathcal{T}(x_1)$ and successive observations $x_{t+1} \sim q_\mathcal{T}(x_{t+1}|x_t, a_t)$. Our goal is to obtain $\theta$ for a model $f_\theta$ (assume $f$ is predetermined), so that when given a generic task $\mathcal{T} \sim p(\mathcal{T})$ and K training datapoints, $f_\theta$ can quickly adapt and become a new model $f_{\theta_{\mathcal{T}, K}}$ that does well on $\mathcal{T}$. For simplicity, assume the adaptation process is through one gradient update:
+
 $$
 \theta_{\mathcal{T}, K} = \theta - \alpha \nabla_{\theta}\mathcal{L}_\mathcal{T}(f_\theta).
 $$
+
 Then, our goal is to obtain $\theta$ so that $f_{\theta_{\mathcal{T}, K}}$ does well on a generic task $\mathcal{T} \sim p(\mathcal{T})$. Namely,
 
 $$
 \begin{align}
-\theta &= \underset{\theta}{\arg\min}\:\mathbb{E}_{\mathcal{T} \sim p(\mathcal{T})}[\mathcal{L}_\mathcal{T}(f_{\theta_{\mathcal{T}, K}})]\nonumber\\
+\theta &= \underset{\theta}{\arg\min}\:\mathbb{E}_{\mathcal{T} \sim p(\mathcal{T})}[\mathcal{L}_\mathcal{T}(f_{\theta_{\mathcal{T}, K}})]\\
 &= \underset{\theta}{\arg\min}\:\mathbb{E}_{\mathcal{T} \sim p(\mathcal{T})}[\mathcal{L}_\mathcal{T}(f_{\theta - \alpha \nabla_{\theta}\mathcal{L}_\mathcal{T}(f_\theta)})].
 \end{align}
 $$
@@ -51,34 +53,44 @@ $$
 
 Recall the meta learning objective is to minimize test loss.
 Let `$\mathbf{X}^{\text{test}} = \cup_{j \in \mathcal{J}}\mathbf{X}^{\text{test}}_j$`, then
+
 $$
 \begin{align}
 p(\mathbf{X}^{\text{test}}|\theta) &= \prod_{j \in \mathcal{J}}p(\mathbf{X}^{\text{test}}_j|\theta)\\
 &= \prod_{j \in \mathcal{J}}\int p(\mathbf{X}^{\text{test}}_j|\phi_j)p(\phi_j|\theta)d\phi_j.
 \end{align}
 $$
+
 And
+
 $$
 -\log p(\mathbf{X}^{\text{test}}|\theta) = -\sum_{j \in \mathcal{J}}\int p(\mathbf{X}^{\text{test}}_j|\phi_j)p(\phi_j|\theta)d\phi_j.
 $$
+
 Using `$\hat{\phi}_j$` as an estimator for `$\phi_j$`, then
+
 $$
 -\log p(\mathbf{X}^{\text{test}}|\theta) = -\sum_{j \in \mathcal{J}} p(\mathbf{X}^{\text{test}}_j|\hat{\phi}_j).
 $$
+
 If set
+
 $$
 \begin{align}
 \hat{\phi}_j &= \theta - \alpha \nabla_{\theta}\mathcal{L}_j(f_\theta)\\
 &= \theta + \alpha \nabla_{\theta} \log p(\mathbf{X}^{\text{train}}_j|\theta)
 \end{align}
 $$
+
 as in the adaptation process above, then maximizing the likelihood $p(\mathbf{X}^{\text{test}}|\theta)$ becomes minimizing `$-\sum_{j \in \mathcal{J}} p(\mathbf{X}^{\text{test}}_j|\theta + \alpha \nabla_{\theta} \log p(\mathbf{X}^{\text{train}}_j|\theta))$`, which is exactly
+
 $$
 \begin{align}
 \theta &= \underset{\theta}{\arg\min}\:\mathbb{E}_{\mathcal{T} \sim p(\mathcal{T})}[\mathcal{L}_\mathcal{T}(f_{\theta_{\mathcal{T}, K}})]\\
 &= \underset{\theta}{\arg\min}\:\mathbb{E}_{\mathcal{T} \sim p(\mathcal{T})}[\mathcal{L}_\mathcal{T}(f_{\theta - \alpha \nabla_{\theta}\mathcal{L}_\mathcal{T}(f_\theta)})]
 \end{align}
 $$
+
 above. This shows **Algorithm 1** has an empirical Bayesian perspective. Taking a step further, because $posterior(\theta) \propto p(\theta) \times likelihood$, we can obtain a sampling mechanism for $\theta$ that addresses the ambiguity in MAML.
 
 Reference:  
