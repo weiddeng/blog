@@ -33,7 +33,7 @@ $$
 This is essentially **Algorithm 1** in [Finn et al. 2017][Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks].
 
 ### Bayesian Hierarchical Modeling
-Meta learning has a Bayesian perspective. Let $\theta$ be the task general random variable with prior $p(\theta)$, and $\phi \sim p(\phi|\theta)$ be the task specific random variable. During meta learning, we sample $\mathcal{J}$ tasks `$\{\mathcal{T}_j | j \in \mathcal{J}\}$`, and for each task `$\mathcal{T}_j$`, we sample $K$ training datapoints
+Meta learning has a Bayesian perspective. Let $\theta$ be the task general random variable with prior $p(\theta)$, and $\phi \sim p(\phi|\theta)$ be the task specific random variable. During meta learning(training), we sample $\mathcal{J}$ tasks `$\{\mathcal{T}_j | j \in \mathcal{J}\}$`, and for each task `$\mathcal{T}_j$`, we sample $K$ training datapoints
 
 $$
 \mathbf{X}^{\text{train}}_j = \{\mathbf{x}^{\text{train}}_{j_k} = (x^{\text{train}}_{j_k}, y^{\text{train}}_{j_k}) : k = 1, ..., K\},
@@ -45,13 +45,13 @@ $$
 \mathbf{X}^{\text{test}}_j = \{\mathbf{x}^{\text{test}}_{j_m} = (x^{\text{test}}_{j_m}, y^{\text{test}}_{j_m}) : m = 1, ..., M\}.
 $$
 
-Let $\mathcal{L}$ be the neg likelihood loss function, then
+Let $\mathcal{L}$ be the neg log likelihood loss function, then
 
 $$
 \mathcal{L}(\phi) = -\log p(\mathbf{X}|\phi).
 $$
 
-Recall the meta learning objective is to minimize test loss.
+Recall the meta learning objective is to minimize the test loss.
 Let `$\mathbf{X}^{\text{test}} = \cup_{j \in \mathcal{J}}\mathbf{X}^{\text{test}}_j$`, then
 
 $$
@@ -67,17 +67,17 @@ $$
 -\log p(\mathbf{X}^{\text{test}}|\theta) = -\sum_{j \in \mathcal{J}}\int p(\mathbf{X}^{\text{test}}_j|\phi_j)p(\phi_j|\theta)d\phi_j.
 $$
 
-Using `$\hat{\phi}_j$` as an estimator for `$\phi_j$`, then
+Using `$\hat{\phi_j}$` as an estimator for `$\phi_j$`, then
 
 $$
--\log p(\mathbf{X}^{\text{test}}|\theta) = -\sum_{j \in \mathcal{J}} p(\mathbf{X}^{\text{test}}_j|\hat{\phi}_j).
+-\log p(\mathbf{X}^{\text{test}}|\theta) = -\sum_{j \in \mathcal{J}} p(\mathbf{X}^{\text{test}}_j|\hat{\phi_j}).
 $$
 
-If set
+*If* set
 
 $$
 \begin{align}
-\hat{\phi}_j &= \theta - \alpha \nabla_{\theta}\mathcal{L}_j(f_\theta)\\
+\hat{\phi_j} &= \theta - \alpha \nabla_{\theta}\mathcal{L}_j(f_\theta)\\
 &= \theta + \alpha \nabla_{\theta} \log p(\mathbf{X}^{\text{train}}_j|\theta)
 \end{align}
 $$
