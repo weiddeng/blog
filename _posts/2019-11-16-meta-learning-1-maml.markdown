@@ -10,11 +10,9 @@ This post is my initial mumbling on meta learning. Meta learning is a different 
 
 ### Notation
 We want to learn not just one task, but a distribution of tasks $p(\mathcal{T})$, where a task $\mathcal{T} \sim p(\mathcal{T})$ has a loss function `$\mathcal{L}_\mathcal{T}$` and a sampling mechanism `$q_\mathcal{T}$`. For example, in a classification problem, we can be given a datapoint $x \sim q_\mathcal{T}(x)$ and asked to classify it; in an RL problem, we can get a trajectory from an initial observation $x_1 \sim q_\mathcal{T}(x_1)$ and successive observations $x_{t+1} \sim q_\mathcal{T}(x_{t+1}|x_t, a_t)$. Our goal is to obtain $\theta$ for a model $f_\theta$ (assume $f$ is predetermined), so that when given a generic task $\mathcal{T} \sim p(\mathcal{T})$ and K training datapoints, $f_\theta$ can quickly adapt and become a new model $f_{\theta_{\mathcal{T}, K}}$ that does well on $\mathcal{T}$. For simplicity, assume the adaptation process is through one gradient update:
-
-$$
+\[
 \theta_{\mathcal{T}, K} = \theta - \alpha \nabla_{\theta}\mathcal{L}_\mathcal{T}(f_\theta).
-$$
-
+\]
 Then, our goal is to obtain $\theta$ so that $f_{\theta_{\mathcal{T}, K}}$ does well on a generic task $\mathcal{T} \sim p(\mathcal{T})$. Namely,
 
 $$
