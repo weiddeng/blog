@@ -8,7 +8,7 @@ How to embed images of faces to a Euclidean space, so that faces of the same per
 
 ![model](/assets/facenet.png)
 LALA
-<img src="/assets/facenet.png" width="800" />
+<img src="/assets/facenet.png" style="width: 500px; display: block; margin: auto;">
 
 
 ### Triplet Loss
