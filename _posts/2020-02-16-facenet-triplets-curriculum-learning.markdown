@@ -7,6 +7,9 @@ date:    2020-02-16 21:30:00 -0800
 How to embed images of faces to a Euclidean space, so that faces of the same person are close and of different person are far away? In [Schroff et al. 2015][FaceNet: A Unified Embedding for Face Recognition and Clustering], the authors presented a nice solution, using off-the-shelf high capacity CNN architectures and batch learning. In each batch, the authors used a curriculum to select a couple of effective triplets to do gradient descent. See [Weinberger et al. 2009][Distance Metric Learning for Large Margin Nearest Neighbor Classification]. A triplet consists of an anchor image, a positive image, and a negative image. The embedding is to a hypersphere and uses only 128-bytes (32x32 bilevel image) per face.
 
 ![model](/assets/facenet.png)
+LALA
+<img src="/assets/facenet.png" width="800" />
+
 
 ### Triplet Loss
 Want anchor image $x^a$ to be closer to (squared L2 distance) all positive images $x^p$ than any negative image $x^n$. I.e.,
