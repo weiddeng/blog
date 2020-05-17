@@ -19,8 +19,8 @@ $$
 where $\alpha > 0$.
 
 Reference:
-[FaceNet: A Unified Embedding for Face Recognition and Clustering][FaceNet: A Unified Embedding for Face Recognition and Clustering]
-[Distance Metric Learning for Large Margin Nearest Neighbor Classification][Distance Metric Learning for Large Margin Nearest Neighbor Classification]
+[FaceNet: A Unified Embedding for Face Recognition and Clustering][FaceNet: A Unified Embedding for Face Recognition and Clustering]  
+[Distance Metric Learning for Large Margin Nearest Neighbor Classification][Distance Metric Learning for Large Margin Nearest Neighbor Classification]  
 [Deep Face Recognition][Deep Face Recognition]
 
 [FaceNet: A Unified Embedding for Face Recognition and Clustering]: https://arxiv.org/pdf/1503.03832.pdf
