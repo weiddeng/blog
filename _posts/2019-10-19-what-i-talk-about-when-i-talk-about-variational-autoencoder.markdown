@@ -6,7 +6,7 @@ date:    2019-10-18 15:34:00 -0800
 ---
 VAE and Denoising AutoEncoder [code snippets][code snippets].
 
-VAE learns data, and shows what generate the data. A datapoint in the data is generally high dimensional, and mixes signals and noises, so it is hard to capture what is going on. If we believe there is a low dimensional space from which the datapoint is generated from, then we can use VAE. Above all, VAE is a generative model.
+VAE learns data, and shows what generate the data. A datapoint in the data is generally high dimensional, and mixes signals and noises, so it is hard to capture what is going on. If we believe there is a low dimensional space from which the datapoint is generated from, then we can use VAE. Above all, VAE is a generative model, just with stochastic latent variables.
 
 Let us use $\{x_1, ..., x_n\}$ to denote the data, sampled from a manifold $X \subset \mathbb{R}^K$. VAE introduces $Z \subset \mathbb{R}^k$ and two global arrows, the decoder $f: Z \times \Theta \rightarrow X$ and the encoder $g: X \rightarrow \mathcal{D}(Z)$. $Z$ is the encoding space and $\mathcal{D}(Z)$ is the set of distributions on $Z$. We have a sampling mechanism on $Z$ via a prior $p(z)$. We wish to optimize $\theta$ so that we can sample $z$ from $p(z)$ and then $f(z, \theta)$ is similar to our data.
 
