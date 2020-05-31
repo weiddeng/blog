@@ -8,6 +8,10 @@ How to embed images of faces to a Euclidean space, so that faces of the same per
 
 <center><img src="/assets/facenet.png" width="450"/></center>
 
+<figure id='SCA_overview'>
+  <img style="display: box; margin: auto" src="/assets/facenet.png"/>
+</figure>
+
 ### Triplet Loss
 Wanna anchor image $x^a$ to be closer to (squared L2 distance) all positive images $x^p$ than any negative image $x^n$. I.e.,
 
