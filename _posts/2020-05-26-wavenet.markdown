@@ -17,9 +17,21 @@ date:    2020-05-26 08:31:00 -0800
 <br />
 
 [van den Oord et al. 2016][Conditional Image Generation with PixelCNN Decoders]: Gated PixelCNN and Conditional Gated PixelCNN (gated convolution layer, residual connection - used in previous papers too), with two stacks of CNNs to eliminate blind spots in the receptive field, in order to get the best of both PixelCNN and PixelRNN. CIFAR-10 generation is pretty good. UnConditional to Conditional, training data are pairs: (conditional vector, image), intelligently blend in the conditional vector.  
-[van den Oord et al. 2016][Wavenet: A Generative Model For Raw Audio]: dilated convolution to obtain a large receptive field, text-to-speech, speech recognition,
+[van den Oord et al. 2016][Wavenet: A Generative Model For Raw Audio]: dilated convolution to obtain a large receptive field:
 <center><img src="../assets/wavenet.png" width="450"/></center>
 <br />
+test-to-speech: transform the text into a sequence of linguistic and phonetic features (which contain information about the current phoneme, syllable, word, etc.) and feed it to WaveNet, the network’s predictions are conditioned not only on the previous audio samples, but also on the text, the result is kind babbling though.
+
+Reference:  
+[Modeling Image Patches with a Directed Hierarchy of Markov Random Fields][Modeling Image Patches with a Directed Hierarchy of Markov Random Fields]  
+[The Neural Autoregressive Distribution Estimator][The Neural Autoregressive Distribution Estimator]  
+[Generative Image Modeling Using Spatial LSTMs][Generative Image Modeling Using Spatial LSTMs]  
+[DRAW: A Recurrent Neural Network For Image Generation][DRAW: A Recurrent Neural Network For Image Generation]  
+[Pixel Recurrent Neural Networks][Pixel Recurrent Neural Networks]  
+[PixelCNN, PixelRNN Youtube][PixelCNN, PixelRNN Youtube]  
+[Conditional Image Generation with PixelCNN Decoders][Conditional Image Generation with PixelCNN Decoders]  
+[Generating Images from Captions with Attention][Generating Images from Captions with Attention]  
+[Wavenet: A Generative Model For Raw Audio][Wavenet: A Generative Model For Raw Audio]  
 
 [Modeling Image Patches with a Directed Hierarchy of Markov Random Fields]: https://papers.nips.cc/paper/3279-modeling-image-patches-with-a-directed-hierarchy-of-markov-random-fields.pdf
 [The Neural Autoregressive Distribution Estimator]: http://proceedings.mlr.press/v15/larochelle11a/larochelle11a.pdf
