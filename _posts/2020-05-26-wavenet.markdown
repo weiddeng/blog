@@ -5,8 +5,19 @@ title:   "WaveNet and its Friends"
 date:    2020-05-26 08:31:00 -0800
 ---
 
-[Osindero et al. 2008][Modeling Image Patches with a Directed Hierarchy of Markov Random Fields]: use Deep Belief Nets to stack a directed hierarchy of conditional Markov Random Fields, energy-based learning, not exactly following the negative log likelihood gradient, layer-by-layer learning, sample a hidden vector $h$ from the conditional posterior $p(h \mid v)$ in the lower-level restricted Boltzmann machine and feed it as the input data to the higher-level RBM that learns the next layer of features. It is a generative model.  
-[Larochelle et al. 2011][The Neural Autoregressive Distribution Estimator]: Neural Autoregressive Distribution Estimator (NADE), model the distribution of high dimensional data tractably, decompose the joint distribution into conditional distributions, autoregressive, DBN, MLE.  
+[Osindero et al. 2008][Modeling Image Patches with a Directed Hierarchy of Markov Random Fields]: use Deep Belief Nets to stack a directed hierarchy of conditional Markov Random Fields, energy-based learning, not exactly following the negative log likelihood gradient, layer-by-layer learning, sample a hidden vector $h$ from the conditional posterior $p(h \mid v)$ in the lower-level restricted Boltzmann machine and feed it as the input data to the higher-level RBM that learns the next layer of features. After learning, data can be sampled top-down all the way to the input data layer to generate input images. The generation process uses MCMC and is intractable.  
+[Larochelle et al. 2011][The Neural Autoregressive Distribution Estimator]: Neural Autoregressive Distribution Estimator (NADE), model the distribution of high dimensional data tractably, decompose the joint distribution into conditional distributions,
+$$
+\begin{align}
+p(v)&=\prod_{i=1}^D p(v_i \mid (v_1, ..., v_{i-1}))\\
+&=\prod_{i=1}^D \frac{p(v_1, ..., v_i)}{p(v_1, ..., v_{i-1})}\\
+&=\prod_{i=1}^D \frac{\sum\limits_{(w_{i+1}, ..., w_D)}p(v_1, ..., v_i, w_{i+1}, ..., w_D)}{\sum\limits_{(w_i, ..., w_D)}p(v_1, ..., v_{i-1}, w_i, ..., w_D)}\\
+&=\prod_{i=1}^D \frac{\sum\limits_{(w_{i+1}, ..., w_D)} \sum\limits_h \exp(-E((v_1, ..., v_i, w_{i+1}, ..., w_D), h))} {\sum\limits_{(w_i, ..., w_D)}\sum\limits_h \exp(-E((v_1, ..., v_{i-1}, w_i, ..., w_D), h))}
+\end{align}
+$$
+
+
+autoregressive, DBN, MLE.  
 [Theis et al. 2015][Generative Image Modeling Using Spatial LSTMs]: Recurrent Image Density Estimator (RIDE). Combine two ideas: mixtures of conditional Gaussian scale mixtures (MCGSMs) and spatial LSTM (SLSTM). SLSTM is a special case of the multi-dimensional LSTM where each memory unit has two preceding states, $c_{i,j−1}$ and $c_{i−1,j}$, and two forget gates, $f_{i,j}^r$ and $f_{i,j}^c$. Sequentially read neighborhoods of pixels from image to produce a hidden vector at every pixel, $p(x_{i,j} \mid x_{<ij}) = p(x_{i,j} \mid h_{ij})$, MLE.  
 [Gregor et al. 2015][DRAW: A Recurrent Neural Network For Image Generation]: DRAW has the following ideas: 1. generate image iteratively rather than in a single pass (similar to boosting?) 2. autoregressive variational autoencoder architecture 3. use a dynamically updated attention mechanism to restrict both the input region observed by the encoder and the output region modified by the decoder. MNIST and Street View House Number generations are pretty good. CIFAR-10 generation is moderate.
 <center><img src="../assets/draw.png" width="450"/></center>
