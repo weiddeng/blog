@@ -42,7 +42,16 @@ Essentially this is a variational autoencoder algorithm. The loss function used 
 <center><img src="../assets/pixelcnnrnn.png" width="300"/></center>
 <br />
 
-[van den Oord et al. 2016][Conditional Image Generation with PixelCNN Decoders]: Gated PixelCNN and Conditional Gated PixelCNN (gated convolution layer, residual connection - used in previous papers too), with two stacks of CNNs to eliminate blind spots in the receptive field, in order to get the best of both PixelCNN and PixelRNN. CIFAR-10 generation is pretty good. UnConditional to Conditional, training data are pairs: (conditional vector, image), intelligently blend in the conditional vector.
+[van den Oord et al. 2016][Conditional Image Generation with PixelCNN Decoders]: Overall this paper is similar to the previous one. New ideas include: 1. replace ReLU between the masked convolutions in the original PixelCNN with gated activation unit to model more complex interactions:
+$$
+\mathbf{y} = \tanh(W_{k,f} \ast \mathbf{x}) \odot \sigma(W_{k,g} \ast \mathbf{x}),
+$$
+and 2. stack 2 CNNs to eliminate blind spots.  
+CIFAR-10 generation is pretty good.  
+A keyword of this paper is 'conditional', where a global latent vector $\mathbf{h}$ is cleverly added to each layer:
+$$
+\mathbf{y} = \tanh(W_{k,f} \ast \mathbf{x} + V_{k,f}^\mathsf{T} \mathbf{h}) \odot \sigma(W_{k,g} \ast \mathbf{x} + V_{k,g}^\mathsf{T} \mathbf{h}).
+$$
 
 [van den Oord et al. 2016][Wavenet: A Generative Model For Raw Audio]: Use dilated convolution to obtain a large receptive field:
 <center><img src="../assets/wavenet.png" width="300"/></center>
@@ -63,7 +72,7 @@ Reference:
 [Generating Images from Captions with Attention][Generating Images from Captions with Attention]  
 [Wavenet: A Generative Model For Raw Audio][Wavenet: A Generative Model For Raw Audio]  
 
-[link]: https://github.com/weiddeng/blog/blob/gh-pages/_posts/2020-05-26-wavenet.markdown
+[link]: https://github.com/weiddeng/blog/blob/gh-pages/_posts/2020-05-26-wavenet-and-its-friends.markdown
 [Modeling Image Patches with a Directed Hierarchy of Markov Random Fields]: https://papers.nips.cc/paper/3279-modeling-image-patches-with-a-directed-hierarchy-of-markov-random-fields.pdf
 [U of Toronto CSC2535 Spring 2013 Lecture 4]: http://www.cs.toronto.edu/~hinton/csc2535/lectures.html
 [The Neural Autoregressive Distribution Estimator]: http://proceedings.mlr.press/v15/larochelle11a/larochelle11a.pdf
