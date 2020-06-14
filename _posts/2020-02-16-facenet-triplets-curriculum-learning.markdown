@@ -9,13 +9,14 @@ How to embed images of faces to a Euclidean space, so that faces of the same per
 <center><img src="/assets/facenet.png" width="450"/></center>
 
 ### Triplet Loss
-Wanna anchor image $x^a$ to be closer to (squared L2 distance) all positive images $x^p$ than any negative image $x^n$. I.e.,
+Want the anchor image $x^a$ to be closer to (squared L2 distance) all positive images $x^p$ than any negative image $x^n$. I.e.,
 
 $$
-L = \sum_i^N[||x_i^a - x_i^p||_2^2 + \alpha - ||x_i^a - x_i^n||_2^2]_{+}
+L = \sum\limits_i^N\left[||x_i^a - x_i^p||_ 2^2 + \alpha - ||x_i^a - x_i^n||_ 2^2\right]_ {+}
 $$
 
 where $\alpha > 0$.
+
 
 Reference:  
 [FaceNet: A Unified Embedding for Face Recognition and Clustering][FaceNet: A Unified Embedding for Face Recognition and Clustering]  
