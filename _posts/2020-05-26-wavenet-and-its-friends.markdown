@@ -56,7 +56,7 @@ $$
 [van den Oord et al. 2016][Wavenet: A Generative Model For Raw Audio]: Use dilated convolution to obtain a large receptive field:
 <center><img src="../assets/wavenet.png" width="300"/></center>
 <br />
-Text-To-Speech: Transform the text into a sequence of linguistic and phonetic features (which contain information about the current phoneme, syllable, word, etc.) and feed it to WaveNet. The network’s predictions are conditioned not only on the previous audio samples, but also on the text. The result is kind babbling though.
+Text-To-Speech: Transform the text into a sequence of linguistic and phonetic features (which contain information about the current phoneme, syllable, word, etc.) and feed it to WaveNet, so the network’s predictions are conditioned not only on the previous audio samples, but also on the text. If removing the text input, then the result is babbling as the network does not know what to say.
 
 
 Reference:  
