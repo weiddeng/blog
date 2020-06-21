@@ -26,7 +26,7 @@ p(v_i=1 \mid \mathbf{v}_{<i}=(v_1, ..., v_{i-1}))&=\text{sigmoid}(b_i + (\mathbf
 \end{align}
 $$
 This is an autoregressive model and learning is based on MLE.
-<center><img src="../assets/NADE.PNG" width="250"/></center>
+<center><img src="../assets/NADE.png" width="250"/></center>
 <br />
 
 [Theis et al. 2015][Generative Image Modeling Using Spatial LSTMs]: Recurrent Image Density Estimator (RIDE). Combine two ideas: 1. mixtures of conditional Gaussian scale mixtures (MCGSMs), 2. spatial LSTM (SLSTM). SLSTM is a special case of the multi-dimensional LSTM where each memory unit has two preceding states, $c_{i,j−1}$ and $c_{i−1,j}$, and two forget gates, $f_{i,j}^r$ and $f_{i,j}^c$. We sequentially read a neighborhood of pixels to produce a hidden representation at every pixel, $p(x_{i,j} \mid x_{<ij}) = p(x_{i,j} \mid h_{ij})$, and use MLE learning.
