@@ -21,8 +21,10 @@ where $\alpha > 0$.
 Reference:  
 [FaceNet: A Unified Embedding for Face Recognition and Clustering][FaceNet: A Unified Embedding for Face Recognition and Clustering]  
 [Distance Metric Learning for Large Margin Nearest Neighbor Classification][Distance Metric Learning for Large Margin Nearest Neighbor Classification]  
+[DeepFace: Closing the Gap to Human-Level Performance in Face Verification][DeepFace: Closing the Gap to Human-Level Performance in Face Verification]  
 [Deep Face Recognition][Deep Face Recognition]
 
 [FaceNet: A Unified Embedding for Face Recognition and Clustering]: https://arxiv.org/pdf/1503.03832.pdf
 [Distance Metric Learning for Large Margin Nearest Neighbor Classification]: http://jmlr.csail.mit.edu/papers/volume10/weinberger09a/weinberger09a.pdf
+[DeepFace: Closing the Gap to Human-Level Performance in Face Verification]: https://www.cs.toronto.edu/~ranzato/publications/taigman_cvpr14.pdf
 [Deep Face Recognition]: https://www.robots.ox.ac.uk/~vgg/publications/2015/Parkhi15/parkhi15.pdf
