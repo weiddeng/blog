@@ -5,10 +5,17 @@ title:   "Chatbot - Partly Attention, Partly Evolution"
 date:    2020-08-09 14:10:00 -0800
 ---
 
-Chatbot is a vast topic, so vast that it probably stirs up a hornets' nest. A chatbot doesn't bake meal or fold laundry, and isn't just about information retrieval or question answering. I think language which includes part of communication is a big part of human intelligence.
+Chatbot is a vast topic, so vast that it probably stirs up a hornets' nest. A chatbot doesn't bake meal or fold laundry, and isn't just about information retrieval or question answering. However, I think language which includes part of communication is a big part of human intelligence.
 
-This post will try to discuss
-####Byte Pair Encoding
+This post will try to discuss a range of topics.
+
+### Tokenization
+
+Tokenization is one of the first steps in an NLP project, and it dives right into the wonderful world of preprocessing. This is where ML meets application domain knowledge. For simplicity, think of a sentence as a unit. How to tokenize a sentence? Usually we want a wide vocabulary, and a mapping from the sentence to a sequence of tokens in the vocab. How to build a wide vocab? 1. explore vs. exploit in training data. 2. define tokens thoughtfully. A vocab is locally static although it can evolve. The ideal scenario is for any sentence, the vocab has rich information for any part of the sentence. Namely, after tokenizing a sentence (by whatever method), every token was seen and seen many times in various contexts.
+
+Tokenizing by word is a popular choice. There are two questions to answer: 1. What is the data munging rule prior to tokenization? 2. How often out of vocab words will be encountered in test? Another class of tokenization methods with subword units seem to be more standard nowadays. [Byte Pair Encoding aka. BPE](https://arxiv.org/pdf/1508.07909.pdf) merging characters in a bottom-up fashion with the number of merges as the only hyperparameters is very popular recently, probably because it alleviates the out of vocab situation.
+
+
 
 ####Training Data
 
