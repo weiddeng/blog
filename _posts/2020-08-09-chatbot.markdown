@@ -11,13 +11,21 @@ This post will try to discuss a range of topics.
 
 ### Tokenization
 
-Tokenization is one of the first steps in an NLP project, and it dives right into the wonderful world of preprocessing. This is where ML meets application domain knowledge. For simplicity, think of a sentence as a unit. How to tokenize a sentence? Usually we want a wide vocabulary, and a mapping from the sentence to a sequence of tokens in the vocab. How to build a wide vocab? 1. explore vs. exploit in training data. 2. define tokens thoughtfully. A vocab is locally static although it can evolve. The ideal scenario is for any sentence, the vocab has rich information for any part of the sentence. Namely, after tokenizing a sentence (by whatever method), every token was seen and seen many times in various contexts.
+Tokenization is one of the first steps in an NLP project, and it dives right into the wonderful world of preprocessing. This is where ML meets domain knowledge. For simplicity, think of a sentence as a unit. How to tokenize a sentence? Usually we want to possess a wide vocabulary, and fragment the sentence to an ensemble of tokens in the vocab. The fragmentation step is a geometric mapping. We can think a sentence is a line or a closed interval, and a fragmentation is a path in the vocab space. So how to build a wide vocab? 1. Explore vs. Exploit; 2. Define the vocab space or tokens thoughtfully. Preprocessing is ineluctable. It is arbitrary and can have a big impact, but it offers an opportunity to adapt to an application. A vocab is kind of static but it will evolve. An ideal scenario is whenever we draw a sentence, and fragment or tokenize it, we can retrieve rich information from the vocab for every token. In particular, it would be great if we have seen every token before and seen it many times. The [Byte Pair Encoding a.k.a. BPE](https://arxiv.org/pdf/1508.07909.pdf) adopted this strategy.
 
-Tokenizing by word is a popular choice. There are two questions to answer: 1. What is the data munging rule prior to tokenization? 2. How often out of vocab words will be encountered in test? Another class of tokenization methods with subword units seem to be more standard nowadays. [Byte Pair Encoding aka. BPE](https://arxiv.org/pdf/1508.07909.pdf) merging characters in a bottom-up fashion with the number of merges as the only hyperparameters is very popular recently, probably because it alleviates the out of vocab situation.
+#### BPE
 
+BPE breaks down a corpus into words, and then breaks down each word into bytes. If characters are unambiguous, then instead it breaks down each word into characters. WLOG let's use characters. The last character of each word is concatenated with an end-of-word symbol $$\cdot$$ and the concatenated character plus $$\cdot$$ is treated as one token. This has the advantage of making end-of-word unambiguous. For instance in sentence generation, it doesn't rely on sampling the end-of-word token to claim the end of a word. Initially the token vocab is the "character" vocab - note a "character" is a pure character or a character concatenated with $$\cdot$$. Then bottom-up merges are performed on consecutive token pairs prioritized by frequency. Each merge produces a new token. The final token vocab size is the size of the initial vocab plus the number of merges – the latter is the only hyperparameter. BPE was originally introduced for translation tasks, and the authors tried learning the encoding with the source and target vocabs combined which they called joint BPE. They also tried dropping infrequent subword units to reduce noise. Applying BPE to encode a word is [pretty straightforward](http://ufal.mff.cuni.cz/~helcl/courses/npfl116/ipython/byte_pair_encoding.html). BPE is capable of encoding open vocabs by representing rare and unseen words as a sequence of subword units, but BPE still has a gap to semantics. For more, check out Hugging Face's [tokenizer summary](https://huggingface.co/transformers/tokenizer_summary.html).
 
+### Training Data
 
-####Training Data
+Training data is tied to skills.
+
+dialogues
+
+Attention is all you need:- WMT 2014 English- to-German translation, WMT 2014 English-to-French translation.
+
+T5: Collossal Clean Crawled Corpus (C4).
 
 ####Training Setup
 
